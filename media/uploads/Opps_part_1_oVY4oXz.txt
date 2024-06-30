@@ -1,0 +1,129 @@
+1) What is Class?
+Python is an object oriented programming language. And To create objects we required some plan or blue print, which is nothing but class. or we can say like that class is the container which is used store properties and action of object so we can write a class to represent properties and action of object.
+
+object->object is nothing but the instance of a Class which have properties and action (any things which have some properties and method eg.mobile).
+
+properties ->properties is nothing but the variables, In python we have 3 types of variables. Types of variables:->
+
+1)instance variables(object level variables)
+
+2)static variables (class level variables)
+
+3)local variables (method level variables)
+
+action -> action is nothing but the methods, In python we have 3 types of methods. Types of methods:->
+
+1)instance method.
+2) class method.
+3)static method.
+
+2) How to Create class.
+->To create the the class we have to use keyword class className.
+
+class Myclass:
+   a='ram'
+   b='sham'
+  def show(self):
+      print(self.a)
+      print(self.b)
+obj=Myclass()
+obj.show()
+
+3) Python Constructors
+->Constructor is the spacel method in the python.
+the name of the Constructor shuld be _init__(self).
+the Constructor will be executed automatically at the time of object creation. the main purpose of Constructor is to declare and initialize instance variables.
+per object Constructor will execute only one. Constructor can take atlist one arguments(self).
+Constructor is the optional and if we are not providing any Constructor then python will provide default Constructor. 
+
+->class without parameter
+class Mobile:
+def_init__(self):
+print('i am class cunstructor')
+self.model='samsung M34'
+self.price=16000
+def show(self):
+print('mobile model is', self.model) print('mobile price is', self.price)
+obj= Mobile()
+print(obj.model)
+print(obj.price)
+obj.show()
+
+->class with parameter 
+class Mobile:
+    def __init__(self,m,p):
+        print('i am class cunstructor')
+       self.model=m
+      self.price=p
+   def show(self,y):
+    self.year=y
+    print('mobile model is', self.model)
+    print('mobile price is', self.price)
+    print('mobile lounch year is', self.year)
+obj= Mobile('samsung M34',16000)
+print(obj.model)
+print(obj.price)
+obj.show(2023)
+
+4) What is instance variables(object level variables)->
+
+1) If the value of the variables change from object to object, then such type of variables are called instance variables.
+
+2) For every object separate copy of instance variables will created.
+
+5) Where we can declare the instance variables->
+
+In python we have 3 places to declare instance variables:
+
+1) Inside the Constructor by using self variable.
+
+2) Inside the instance method by using self variable.
+ 3)Outside of the class by using object refrence variable.
+
+6) How to acces instance variables->
+
+We can acces instance variables with in class by using self variable and outside of the class by using object refrence variable.
+
+7) How to delete instance variables from object->
+
+1) We can delete instance variables within class by using.
+
+del self.variableName.
+
+2)and outside of the class by using
+
+del objectrefrencevariable.variableName.
+
+Example.
+2) How to Create class.
+
+#class is the container which is used store properties and action of object.
+
+#object is nothing but the instance of a Class which have properties and action
+
+#To create the the class we have to use keyword class
+
+#className.
+
+class Mobile:
+
+weight=300 #properties, attribute, static variables
+
+colore='black' #properties, attribute, static variables
+
+def calling(self): #action, function, method, instance meyhod print('i am calling function')
+
+obj=Mobile()# object creation
+
+obj2=Mobile() # object creation
+
+obj3=Mobile() # object creation
+
+obj2.calling()# access method of class
+
+obj3.calling()# access method of class
+
+obj.calling()# access method of class
+
+print(obj.weight)# access properties or variables of class
+ print(obj.colore)# access properties or variables of class

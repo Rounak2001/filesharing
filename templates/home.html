@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block body %}
+<!--Posts -->
+{% for post in posts %}
+<div class="container my-4 alert alert-success"> 
+    <div class="card">
+        <h5 class="card-header">By <a style="text-decoration:none; color:#DC3545;" href="{% url 'profile' post.user.username %}">{{ post.user }}</a></h5>
+        <div class="card-body">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text">{{ post.desc }}</p>
+
+            {% if request.session.user %}
+                <a href="{{ MEDIA_URL }}/{{ post.file_field.url }}" class="btn btn-warning" target="_blank">View</a>
+                <a href="{{ MEDIA_URL }}/{{ post.file_field.url }}" class="btn btn-info mx-4" download>Download</a>  
+                <!-- Trigger Button for Add Comment Modal -->
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addCommentModal">Add Comment</button>
+
+                <!-- Comments Section -->
+                <div class="mt-4">
+                    <h6>Comments:</h6>
+                    {% if post.comments.exists %}
+                        {% for comment in post.comments.all %}
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <p class="card-text">{{ comment.text }}</p>
+                                    <p class="card-text text-muted"><b>{{ comment.user.username }}</b> at {{ comment.created_at }}</p>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>No comments yet.</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>No comments yet.</p>
+                    {% endif %}
+                </div>
+                
+            {% else %}
+                <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">You have to login before downloading this file.</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+<!-- Add Comment Modal Form -->
+<div class="modal fade" id="addCommentModal" tabindex="-1" aria-labelledby="addCommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCommentModalLabel">Add Comment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'postComment' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="commentTextarea">Comment</label>
+              <textarea class="form-control" name="comment" required id="commentTextarea" rows="4" placeholder="Add your comment here..."></textarea>
+              <input type="hidden" name="postSno" value="{{posts.id}}" >
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add Comment</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+<!-- {% if request.session.user %}
+                <a href="{{MEDIA_URL}}/{{post.file_field.url}}" class="btn btn-warning" target="_blank">View</a>
+                <a href="{{MEDIA_URL}}/{{post.file_field.url}}" class="btn btn-info mx-4" download>Download</a>  
+            {% else %}
+                <a href="#">You Have To Login Before Download this File.</a>
+            {% endif %}" -->
